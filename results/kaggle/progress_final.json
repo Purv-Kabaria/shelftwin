@@ -1,0 +1,78 @@
+{
+  "data": {
+    "status": "done",
+    "at": "2026-10-09 08:39:15",
+    "minutes": 70.9,
+    "sku_exp": {
+      "train": 1500,
+      "val": 300,
+      "test": 500
+    },
+    "sku_full": {
+      "train": 8185,
+      "val": 584,
+      "test": 2920
+    },
+    "rp2k": true,
+    "prep_minutes": 70.9
+  },
+  "eda": {
+    "status": "done",
+    "at": "2026-10-09 08:59:47",
+    "minutes": 20.5,
+    "sku": [
+      "max_det >= 718 needed (max boxes in one image); use 1000.",
+      "Smallest training size with < 5% of packs under 16 px: 1024 (<16 px share: 640: 40.7%, 896: 17.7%, 1024: 11.7%).",
+      "88% of images contain at least one real gap; mean 5.36 per image -> enough real gap labels to evaluate on real photos."
+    ],
+    "rp2k": [
+      "2233 classes, median 47 images/class; 97 classes have < 6 images (excluded from open-set eval).",
+      "Capping at 40 images/class gives ~45,247 training images (~1.9 min/epoch at ~400 img/s on T4).",
+      "Many images are very small: 224 px input already upsamples; a larger input brings little."
+    ]
+  },
+  "engine": {
+    "status": "done",
+    "at": "2026-10-09 09:17:58",
+    "minutes": 18.2,
+    "best_params": {
+      "llr_empty": 1.2,
+      "llr_stocked": 2.2,
+      "act_threshold": 5.0,
+      "decay_per_s": 0.01
+    },
+    "false_alert_causes": {
+      "blocked_mask_missed": 19,
+      "blocked_mask_ok": 1,
+      "glare": 1
+    }
+  },
+  "exp_detector": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:58"
+  },
+  "exp_gap": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:58"
+  },
+  "exp_embed": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:58"
+  },
+  "final_detector": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:58"
+  },
+  "final_packgap": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:59"
+  },
+  "final_embed": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:59"
+  },
+  "final_eval": {
+    "status": "waiting_for_gpu",
+    "at": "2026-10-09 09:17:59"
+  }
+}

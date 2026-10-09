@@ -1,0 +1,26 @@
+{
+  "images": 381303,
+  "classes": 2233,
+  "per_class": {
+    "min": 1,
+    "median": 47.0,
+    "mean": 170.75817286162115,
+    "max": 10628,
+    "p10": 10.0,
+    "p90": 431.79999999999995
+  },
+  "classes_lt6": 97,
+  "classes_ge40": 1208,
+  "gini": 0.7209088579299454,
+  "image_size": {
+    "w_median": 106.0,
+    "h_median": 227.0,
+    "short_lt112": 0.5606666666666666
+  },
+  "train_images_if_capped_at_40_per_class": 45247,
+  "recommendations": [
+    "2233 classes, median 47 images/class; 97 classes have < 6 images (excluded from open-set eval).",
+    "Capping at 40 images/class gives ~45,247 training images (~1.9 min/epoch at ~400 img/s on T4).",
+    "Many images are very small: 224 px input already upsamples; a larger input brings little."
+  ]
+}

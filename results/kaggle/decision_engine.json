@@ -1,0 +1,23 @@
+{
+  "topic": "engine",
+  "decision": {
+    "llr_empty": 1.2,
+    "llr_stocked": 2.2,
+    "act_threshold": 5.0,
+    "decay_per_s": 0.01
+  },
+  "evidence": {
+    "tuned": {
+      "false_alerts_per_cam_hour": 0.125,
+      "precision": 0.9864222674813307,
+      "recall": 1.0,
+      "median_delay_s": 18.0,
+      "p95_delay_s": 26.0,
+      "alerts": 1473,
+      "false_alerts": 20,
+      "true_events": 1452,
+      "camera_hours": 160.0
+    }
+  },
+  "created": "2026-10-09 09:17:58"
+}

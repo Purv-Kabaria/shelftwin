@@ -70,6 +70,16 @@ See **[notebooks/README.md](notebooks/README.md)**. Every notebook is resumable,
 3. `04_embedder_arcface`: DINOv2 ViT-S/14 + ArcFace product embedder, open-set evaluation, abstention thresholds
 4. `07_engine_calibration`: engine grid search on CPU (no GPU quota)
 
+## Deck and results (reproducible)
+
+`ShelfTwin.pptx` / `ShelfTwin.pdf` are generated from the original deck (`deck/ShelfTwin_base.pptx`) and the result
+files in this repository, so every number on the proof-of-concept slides traces back to a file:
+
+```bash
+python scripts/fetch_kaggle_results.py   # small outputs of the public Kaggle run -> results/kaggle/
+python scripts/update_deck.py            # rebuilds ShelfTwin.pptx (slides 1, 12-14, 20)
+```
+
 ## Running on real video (after training)
 
 ```bash

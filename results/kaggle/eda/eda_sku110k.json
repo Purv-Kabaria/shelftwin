@@ -1,0 +1,94 @@
+{
+  "source": "YOLO labels in /tmp/shelftwin/sku110k_full",
+  "images": {
+    "train": 8185,
+    "val": 584,
+    "test": 2920
+  },
+  "boxes_total": 1723135,
+  "boxes_per_image": {
+    "count": 11689.0,
+    "mean": 147.41509111130122,
+    "std": 43.49445705077483,
+    "min": 1.0,
+    "50%": 138.0,
+    "90%": 195.0,
+    "99%": 307.0,
+    "max": 718.0
+  },
+  "images_over_300_boxes": 127,
+  "images_over_1000_boxes": 0,
+  "degenerate_boxes": 0,
+  "out_of_image_boxes": 1743,
+  "image_size": {
+    "W": {
+      "count": 11689.0,
+      "mean": 764.1142954914877,
+      "std": 124.1725313058691,
+      "min": 480.0,
+      "25%": 768.0,
+      "50%": 768.0,
+      "75%": 768.0,
+      "max": 1024.0
+    },
+    "H": {
+      "count": 11689.0,
+      "mean": 991.7185387971597,
+      "std": 90.3678456936188,
+      "min": 575.0,
+      "25%": 1024.0,
+      "50%": 1024.0,
+      "75%": 1024.0,
+      "max": 1024.0
+    },
+    "portrait_share": 0.8720164256993754
+  },
+  "box_aspect_h_over_w": {
+    "count": 1723135.0,
+    "mean": 2.085987730211834,
+    "std": 1.5005270783256148,
+    "min": 0.026178010471204497,
+    "5%": 0.2977528089887645,
+    "50%": 1.8705035971223014,
+    "95%": 4.6703671328671135,
+    "max": 21.680000000000156
+  },
+  "box_short_side_after_resize": {
+    "640": {
+      "lt8": 0.0565132737713528,
+      "lt16": 0.4071648477919606,
+      "lt32": 0.9327818191842194,
+      "median_px": 17.749999999999986
+    },
+    "896": {
+      "lt8": 0.014427192297759607,
+      "lt16": 0.17702095308841154,
+      "lt32": 0.7324458037240262,
+      "median_px": 24.84999999999998
+    },
+    "1024": {
+      "lt8": 0.006448711215313948,
+      "lt16": 0.11696529871426209,
+      "lt32": 0.609340533388272,
+      "median_px": 28.399999999999977
+    }
+  },
+  "rows_per_image": {
+    "mean": 8.336666666666666,
+    "median": 7.0
+  },
+  "real_gaps_per_image": {
+    "mean": 5.3646666666666665,
+    "share_with_gap": 0.8773333333333333,
+    "p90": 12.0
+  },
+  "real_gap_width_in_pack_widths": {
+    "median": 1.2173912709143195
+  },
+  "recommendations": [
+    "max_det >= 718 needed (max boxes in one image); use 1000.",
+    "Smallest training size with < 5% of packs under 16 px: 1024 (<16 px share: 640: 40.7%, 896: 17.7%, 1024: 11.7%).",
+    "88% of images contain at least one real gap; mean 5.36 per image -> enough real gap labels to evaluate on real photos."
+  ],
+  "note": "image sizes are of the prepared (resized) copy; all box statistics are relative"
+}
