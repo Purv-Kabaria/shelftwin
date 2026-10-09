@@ -1,0 +1,70 @@
+{
+  "sim_config": {
+    "n_slots": 24,
+    "frame_dt_s": 2.0,
+    "hours": 8.0,
+    "units_min": 6,
+    "units_max": 12,
+    "demand_min_per_h": 0.5,
+    "demand_max_per_h": 6.0,
+    "blocks_per_h": 25.0,
+    "block_logmean": 1.8,
+    "block_logsd": 0.7,
+    "block_min_s": 2.0,
+    "block_max_s": 30.0,
+    "p_gap_when_blocked": 0.7,
+    "p_mask_miss": 0.05,
+    "p_glare_gap": 0.01,
+    "p_empty_misread": 0.03,
+    "restock_at_units": 2,
+    "refill_min_s": 600.0,
+    "refill_max_s": 2400.0
+  },
+  "n_runs": 20,
+  "results": {
+    "Single-frame": {
+      "false_alerts_per_cam_hour": 965.8625,
+      "precision": 0.052199032192776405,
+      "recall": 0.9745179063360881,
+      "median_delay_s": 0.0,
+      "p95_delay_s": 0.0,
+      "alerts": 163049,
+      "false_alerts": 154538,
+      "true_events": 1452,
+      "camera_hours": 160.0
+    },
+    "Single-frame + person mask": {
+      "false_alerts_per_cam_hour": 376.425,
+      "precision": 0.12310178646826726,
+      "recall": 0.9958677685950413,
+      "median_delay_s": 0.0,
+      "p95_delay_s": 2.0,
+      "alerts": 68683,
+      "false_alerts": 60228,
+      "true_events": 1452,
+      "camera_hours": 160.0
+    },
+    "Majority vote 3 of 5 + mask": {
+      "false_alerts_per_cam_hour": 11.16875,
+      "precision": 0.4553489789698263,
+      "recall": 0.9986225895316805,
+      "median_delay_s": 4.0,
+      "p95_delay_s": 8.0,
+      "alerts": 3281,
+      "false_alerts": 1787,
+      "true_events": 1452,
+      "camera_hours": 160.0
+    },
+    "ShelfTwin engine": {
+      "false_alerts_per_cam_hour": 0.81875,
+      "precision": 0.9172979797979798,
+      "recall": 1.0,
+      "median_delay_s": 12.0,
+      "p95_delay_s": 18.0,
+      "alerts": 1584,
+      "false_alerts": 131,
+      "true_events": 1452,
+      "camera_hours": 160.0
+    }
+  }
+}

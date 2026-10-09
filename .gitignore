@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+models/
+runs/
+*.pt
+*.onnx
+*.engine
+*.db
+.remember/
+.ipynb_checkpoints/
+
+# large local artefacts
+results.zip
+*.zip
+notebooks/src/__pycache__/
+.claude/

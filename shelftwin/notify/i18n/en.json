@@ -1,0 +1,7 @@
+{
+  "kinds": {"restock_empty": "EMPTY", "restock_low": "LOW", "displacement": "MISPLACED",
+            "cold_chain": "COLD CHAIN", "record_check": "RECORD CHECK", "layout_check": "LAYOUT CHANGED?"},
+  "aisle": "Aisle", "shelf": "Shelf", "slot": "Slot", "priority": "Priority",
+  "bring_from": "Bring stock from backroom rack {loc}.",
+  "why": "Why: {views} clean views in {span}s, coverage {cov}%, {blocked}% of views blocked."
+}

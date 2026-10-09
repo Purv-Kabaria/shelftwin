@@ -1,0 +1,7 @@
+{
+  "kinds": {"restock_empty": "खाली", "restock_low": "कम स्टॉक", "displacement": "गलत जगह",
+            "cold_chain": "कोल्ड चेन", "record_check": "रिकॉर्ड जाँच", "layout_check": "लेआउट बदला?"},
+  "aisle": "गलियारा", "shelf": "शेल्फ", "slot": "स्लॉट", "priority": "प्राथमिकता",
+  "bring_from": "बैकरूम रैक {loc} से स्टॉक लाएँ।",
+  "why": "कारण: {span} सेकंड में {views} साफ़ दृश्य, कवरेज {cov}%, {blocked}% दृश्य रुके हुए।"
+}

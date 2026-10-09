@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShelfTwin</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #1d2330; --muted: #667085; --line: #e3e6eb;
+  --ok: #1f9d55; --wait: #d99a00; --empty: #d64545; --cant: #8a94a6; --accent: #2f6fde;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #12151b; --panel: #1b2029; --ink: #e8ebf0; --muted: #98a2b3; --line: #2a313d;
+          --ok: #3fbf74; --wait: #f0b429; --empty: #ef6262; --cant: #7d8799; --accent: #6b9bff; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+header { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+header h1 { font-size: 18px; margin: 0; }
+.clock { color: var(--muted); font-variant-numeric: tabular-nums; }
+.kpis { display: flex; gap: 10px; margin-left: auto; flex-wrap: wrap; }
+.kpi { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; min-width: 130px; }
+.kpi b { font-size: 18px; font-variant-numeric: tabular-nums; display: block; }
+.kpi span { color: var(--muted); font-size: 12px; }
+main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 16px; padding: 16px; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.panel h2 { font-size: 14px; margin: 0 0 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.shelf { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
+.shelf-label { font-size: 12px; color: var(--muted); margin: 6px 0 4px; }
+.slot { border: 2px solid var(--line); border-radius: 8px; padding: 6px; cursor: pointer; min-height: 92px; position: relative; }
+.slot .name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slot .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; color: #fff; margin: 4px 0; }
+.bar { height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 3px; }
+.bar i { display: block; height: 100%; }
+.meta { font-size: 11px; color: var(--muted); }
+.HEALTHY { border-color: var(--ok); } .HEALTHY .badge { background: var(--ok); }
+.WAIT { border-color: var(--wait); } .WAIT .badge { background: var(--wait); }
+.EMPTY { border-color: var(--empty); background: color-mix(in srgb, var(--empty) 8%, transparent); } .EMPTY .badge { background: var(--empty); }
+.CANNOT_SEE { border-color: var(--cant); border-style: dashed; } .CANNOT_SEE .badge { background: var(--cant); }
+.task { border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 8px; }
+.task .msg { font-size: 13px; }
+.task .st { font-size: 11px; color: var(--muted); margin: 4px 0; }
+.task button { font: inherit; font-size: 12px; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; margin-right: 4px; }
+.task button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.k-restock_empty, .k-cold_chain { border-left: 4px solid var(--empty); }
+.k-restock_low { border-left: 4px solid var(--wait); }
+.k-displacement, .k-layout_check { border-left: 4px solid var(--accent); }
+select { font: inherit; padding: 3px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); }
+#detail { font-size: 12px; white-space: pre-wrap; color: var(--muted); }
+.legend { display: flex; gap: 12px; font-size: 12px; color: var(--muted); flex-wrap: wrap; margin-bottom: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ShelfTwin</h1>
+  <span class="clock" id="clock">t = 0</span>
+  <select id="lang" title="Message language">
+    <option value="en">English</option><option value="hi">हिन्दी</option><option value="gu">ગુજરાતી</option>
+  </select>
+  <div class="kpis">
+    <div class="kpi"><b id="k-base">0</b><span>Single-frame alerts</span></div>
+    <div class="kpi"><b id="k-eng">0</b><span>ShelfTwin alerts</span></div>
+    <div class="kpi"><b id="k-open">0</b><span>Open tasks</span></div>
+    <div class="kpi"><b id="k-cant">0</b><span>Cannot see</span></div>
+  </div>
+</header>
+<main>
+  <section class="panel">
+    <h2>Aisle 4 · Bay B1</h2>
+    <div class="legend">
+      <span><i style="background:var(--ok)"></i>Healthy</span>
+      <span><i style="background:var(--wait)"></i>Wait (evidence building)</span>
+      <span><i style="background:var(--empty)"></i>Empty (task)</span>
+      <span><i style="background:var(--cant)"></i>Cannot see</span>
+    </div>
+    <div id="shelves"></div>
+    <h2 style="margin-top:14px">Slot detail</h2>
+    <div id="detail">Click a slot to see why it is in its state.</div>
+  </section>
+  <section class="panel">
+    <h2>Tasks</h2>
+    <div id="tasks"></div>
+  </section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+let lang = 'en';
+try { lang = localStorage.getItem('st-lang') || 'en'; } catch (e) {}
+$('lang').value = lang;
+$('lang').onchange = (e) => { lang = e.target.value; try { localStorage.setItem('st-lang', lang); } catch (e) {} refresh(); };
+
+const fmtT = (s) => { s = Math.floor(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+  return `${h}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}`; };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+function renderState(s) {
+  $('clock').textContent = 'simulated time ' + fmtT(s.now);
+  $('k-base').textContent = s.totals.baseline_alerts;
+  $('k-eng').textContent = s.totals.engine_alerts;
+  $('k-cant').textContent = s.slots.filter((x) => x.ui_state === 'CANNOT_SEE').length;
+  const byShelf = {};
+  for (const sl of s.slots) (byShelf[sl.shelf] ||= []).push(sl);
+  let html = '';
+  for (const sh of Object.keys(byShelf).sort()) {
+    html += `<div class="shelf-label">Shelf ${sh}</div><div class="shelf">`;
+    for (const sl of byShelf[sh]) {
+      const cov = sl.coverage == null ? 0 : Math.round(sl.coverage * 100);
+      const ev = Math.max(0, Math.min(100, Math.round((sl.score / sl.act_threshold) * 100)));
+      const label = sl.ui_state.replace('_', ' ');
+      html += `<div class="slot ${sl.ui_state}" data-id="${esc(sl.slot_id)}" title="${esc(sl.slot_id)}">
+        <div class="name">${esc(sl.sku)}</div>
+        <span class="badge">${label}</span>
+        <div class="meta">cover ${cov}% · vis ${sl.visibility == null ? '-' : Math.round(sl.visibility * 100) + '%'}</div>
+        <div class="bar" title="evidence toward ACT"><i style="width:${ev}%;background:var(--empty)"></i></div>
+        <div class="meta">${sl.last_clean_age_s != null && sl.last_clean_age_s > 4 ? 'last clean ' + Math.round(sl.last_clean_age_s) + 's ago' : '&nbsp;'}</div>
+      </div>`;
+    }
+    html += '</div>';
+  }
+  $('shelves').innerHTML = html;
+  document.querySelectorAll('.slot').forEach((el) => el.onclick = () => showDetail(el.dataset.id));
+}
+
+async function showDetail(id) {
+  try {
+    const e = await api(`/api/slots/${encodeURIComponent(id)}/explain`);
+    $('detail').textContent = `${id} · ${e.sku}\n` +
+      `clean confirming views: ${e.clean_views} over ${e.span_s}s\n` +
+      `coverage now: ${e.coverage_now == null ? '-' : Math.round(e.coverage_now * 100) + '%'}` +
+      `${e.coverage_before != null ? ' (was ' + Math.round(e.coverage_before * 100) + '%)' : ''}\n` +
+      `share of recent views blocked: ${Math.round(e.share_blocked * 100)}%\n` +
+      `evidence score: ${e.score} (ACT at 4.0, CLEAR at -1.0)` + (e.backroom ? `\nbackroom rack: ${e.backroom}` : '');
+  } catch (err) { $('detail').textContent = String(err); }
+}
+
+function renderTasks(ts) {
+  $('k-open').textContent = ts.length;
+  if (!ts.length) { $('tasks').innerHTML = '<div class="meta">No open tasks. Shelves look fine.</div>'; return; }
+  $('tasks').innerHTML = ts.map((t) => `<div class="task k-${t.kind}">
+    <div class="msg">${esc(t.message)}</div>
+    <div class="st">#${t.task_id} · ${t.status.replace('_', ' ')} · team ${esc(t.assignee_team)}${t.reason && t.reason.escalated ? ' · escalated' : ''}</div>
+    <button class="primary" onclick="taskAct(${t.task_id}, 'ack')">I am on it</button>
+    <button onclick="taskAct(${t.task_id}, 'done')">Done</button>
+    <button onclick="taskAct(${t.task_id}, 'snooze', {minutes: 30})">Snooze</button>
+    <button onclick="taskAct(${t.task_id}, 'wrong', {note: 'from dashboard'})">Wrong alert</button>
+  </div>`).join('');
+}
+
+async function taskAct(id, action, body) {
+  try {
+    await api(`/api/tasks/${id}/${action}`, {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                             body: JSON.stringify(body || {})});
+  } catch (err) { console.warn(err); }
+  refresh();
+}
+
+async function refresh() {
+  try {
+    const [s, t] = await Promise.all([api('/api/state'), api('/api/tasks?lang=' + lang)]);
+    renderState(s); renderTasks(t);
+  } catch (err) { console.warn(err); }
+}
+refresh();
+setInterval(refresh, 1000);
+</script>
+</body>
+</html>
