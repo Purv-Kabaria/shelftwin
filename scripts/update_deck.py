@@ -30,7 +30,7 @@ from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO_URL = "https://github.com/Purv-Kabaria/shelftwin"
-KAGGLE_URL = "https://www.kaggle.com/code/purv2k2/notebook77852dc329"
+KAGGLE_URL = "https://www.kaggle.com/code/purv2k2/shelftwin-training"   # final training run (overridable: --kaggle)
 INK = RGBColor(0x14, 0x14, 0x14)
 GREY = RGBColor(0xBF, 0xBF, 0xBF)
 MID = RGBColor(0x7F, 0x7F, 0x7F)
@@ -387,7 +387,7 @@ def edit_slide12(prs, s12, sim: dict, engine: dict | None):
     t11 = shape_by_name(s12, "Text 11").text_frame
     r = set_runs(t11.paragraphs[0], "Run: pytest -q  ·  python sim/simulate.py 20. Training logs: ")
     r2 = t11.paragraphs[0].add_run()
-    r2.text = "kaggle.com/code/purv2k2/notebook77852dc329"
+    r2.text = KAGGLE_URL.replace("https://www.", "")
     r2.font.size, r2.font.name = r.font.size, "Calibri"
     add_link(r2, KAGGLE_URL)
     t5 = shape_by_name(s12, "Text 5").text_frame
@@ -593,7 +593,9 @@ def main():
     ap.add_argument("--base", default=str(ROOT / "deck" / "ShelfTwin_base.pptx"))
     ap.add_argument("--out", default=str(ROOT / "ShelfTwin.pptx"))
     ap.add_argument("--results", default=str(ROOT / "results" / "kaggle"))
+    ap.add_argument("--kaggle", default=KAGGLE_URL, help="public Kaggle notebook shown as training proof")
     a = ap.parse_args()
+    globals()["KAGGLE_URL"] = a.kaggle
     results = Path(a.results)
     sim = load(ROOT / "sim" / "results.json")
     engine = load(results / "engine_analysis.json")

@@ -38,7 +38,7 @@ def list_output(user: str, slug: str) -> tuple[list[dict], str]:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--user", default="purv2k2")
-    ap.add_argument("--slug", default="notebook77852dc329")
+    ap.add_argument("--slug", default="shelftwin-training")
     ap.add_argument("--out", default=str(ROOT / "results" / "kaggle"))
     a = ap.parse_args()
     out = Path(a.out)
