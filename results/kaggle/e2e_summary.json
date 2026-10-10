@@ -1,0 +1,109 @@
+{
+  "roles": {
+    "A": "R3-P22",
+    "B": "R1-P11",
+    "C": "R1-P18",
+    "D": "R1-P26"
+  },
+  "n_slots": 112,
+  "single_frame_alerts": 53,
+  "engine_alerts": 9,
+  "engine_correct_alerts": 1,
+  "engine_false_alerts": 8,
+  "detection_delay_s": 32.0,
+  "refill_verified": true,
+  "displacement_task": true,
+  "tasks": [
+    {
+      "kind": "restock_empty",
+      "slot": "R1-P5",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R1-P21",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R3-P4",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R3-P23",
+      "status": "verified",
+      "created_s": 6.0,
+      "time_to_fix_s": 466.0
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R3-P36",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R3-P39",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "displacement",
+      "slot": "R1-P21",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "displacement",
+      "slot": "R2-P2",
+      "status": "open",
+      "created_s": 6.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "displacement",
+      "slot": "R1-P20",
+      "status": "open",
+      "created_s": 44.0,
+      "time_to_fix_s": null
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R1-P17",
+      "status": "verified",
+      "created_s": 70.0,
+      "time_to_fix_s": 6.0
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R3-P22",
+      "status": "verified",
+      "created_s": 72.0,
+      "time_to_fix_s": 226.0
+    },
+    {
+      "kind": "restock_empty",
+      "slot": "R1-P17",
+      "status": "verified",
+      "created_s": 112.0,
+      "time_to_fix_s": 42.0
+    },
+    {
+      "kind": "displacement",
+      "slot": "R1-P18",
+      "status": "open",
+      "created_s": 332.0,
+      "time_to_fix_s": null
+    }
+  ]
+}

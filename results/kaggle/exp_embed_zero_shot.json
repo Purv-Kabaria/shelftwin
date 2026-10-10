@@ -1,0 +1,22 @@
+[
+  {
+    "model": "vit_small_patch14_dinov2.lvd142m",
+    "params_M": 21.6,
+    "recall_at_1": 0.8623853211009175,
+    "recall_at_5": 0.9651376146788991,
+    "map_at_r": 0.5658470948012232,
+    "n_known_queries": 545,
+    "n_unknown_queries": 577,
+    "eval_seconds": 5.1
+  },
+  {
+    "model": "vit_base_patch14_dinov2.lvd142m",
+    "params_M": 85.7,
+    "recall_at_1": 0.8513761467889909,
+    "recall_at_5": 0.9541284403669725,
+    "map_at_r": 0.5594617737003058,
+    "n_known_queries": 545,
+    "n_unknown_queries": 577,
+    "eval_seconds": 8.7
+  }
+]

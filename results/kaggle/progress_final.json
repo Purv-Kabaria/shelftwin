@@ -48,31 +48,71 @@
     }
   },
   "exp_detector": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:58"
+    "status": "done",
+    "at": "2026-10-09 14:13:33",
+    "minutes": 26.1,
+    "winner": "d_y11s_1024",
+    "mAP50_95": 0.5666013407193209
   },
   "exp_gap": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:58"
+    "status": "done",
+    "at": "2026-10-09 14:27:39",
+    "minutes": 14.1,
+    "winner": "shelfback_only"
   },
   "exp_embed": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:58"
+    "status": "done",
+    "at": "2026-10-09 14:34:19",
+    "minutes": 6.7,
+    "winner": "last4",
+    "recall_at_1": 0.9522935779816514
   },
   "final_detector": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:58"
+    "status": "done",
+    "at": "2026-10-09 17:36:13",
+    "minutes": 181.9,
+    "epochs": 58,
+    "weights": "/kaggle/working/runs/final_pack/weights/best.pt"
   },
   "final_packgap": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:59"
+    "status": "done",
+    "at": "2026-10-09 19:12:03",
+    "minutes": 95.8,
+    "epochs": 56,
+    "data": "/tmp/shelftwin/pg_full_p0.6_0.0_1.0_0.0"
   },
   "final_embed": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:59"
+    "status": "done",
+    "at": "2026-10-09 19:44:26",
+    "minutes": 32.4,
+    "test": {
+      "recall_at_1": 0.9310716208939149,
+      "recall_at_5": 0.9709208400646203,
+      "map_at_r": 0.8203446418955305,
+      "n_known_queries": 1857,
+      "n_unknown_queries": 2076,
+      "thr_sim": 0.6800000029802327,
+      "thr_margin": 0.08,
+      "accepted_precision": 0.9428772919605077,
+      "known_coverage": 0.7199784598815293,
+      "unknown_rejection": 0.9686897880539499
+    },
+    "zero_shot": {
+      "recall_at_1": 0.7005923532579429,
+      "recall_at_5": 0.8912224017232094,
+      "map_at_r": 0.4249865374259558,
+      "n_known_queries": 1857,
+      "n_unknown_queries": 2076
+    }
   },
   "final_eval": {
-    "status": "waiting_for_gpu",
-    "at": "2026-10-09 09:17:59"
+    "status": "done",
+    "at": "2026-10-09 19:50:26",
+    "minutes": 6.0,
+    "parts": [
+      "pack_detector",
+      "pack_gap_detector",
+      "e2e_demo"
+    ]
   }
 }

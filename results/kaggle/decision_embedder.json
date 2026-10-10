@@ -1,0 +1,79 @@
+{
+  "topic": "embedder",
+  "decision": {
+    "unfreeze_blocks": 4
+  },
+  "evidence": {
+    "table": [
+      {
+        "name": "head_only",
+        "unfreeze_blocks": 0,
+        "lr_head": 0.002,
+        "recall_at_1": 0.8788990825688073,
+        "recall_at_5": 0.9743119266055046,
+        "map_at_r": 0.6221039755351682,
+        "n_known_queries": 545,
+        "n_unknown_queries": 577,
+        "thr_sim": 0.2800000011920929,
+        "thr_margin": 0.22,
+        "accepted_precision": 0.8816568047337278,
+        "known_coverage": 0.27339449541284405,
+        "unknown_rejection": 0.9653379549393414,
+        "train_minutes": 2.0
+      },
+      {
+        "name": "last2",
+        "unfreeze_blocks": 2,
+        "recall_at_1": 0.9211009174311927,
+        "recall_at_5": 0.9779816513761468,
+        "map_at_r": 0.6942324159021406,
+        "n_known_queries": 545,
+        "n_unknown_queries": 577,
+        "thr_sim": 0.7599999976158147,
+        "thr_margin": 0.16,
+        "accepted_precision": 0.952191235059761,
+        "known_coverage": 0.43853211009174314,
+        "unknown_rejection": 0.9792027729636048,
+        "train_minutes": 2.0
+      },
+      {
+        "name": "last4",
+        "unfreeze_blocks": 4,
+        "recall_at_1": 0.9522935779816514,
+        "recall_at_5": 0.9798165137614679,
+        "map_at_r": 0.7760672782874617,
+        "n_known_queries": 545,
+        "n_unknown_queries": 577,
+        "thr_sim": 0.7300000041723256,
+        "thr_margin": 0.11,
+        "accepted_precision": 0.9251870324189526,
+        "known_coverage": 0.6807339449541284,
+        "unknown_rejection": 0.949740034662045,
+        "train_minutes": 2.0
+      }
+    ],
+    "zero_shot": [
+      {
+        "model": "vit_small_patch14_dinov2.lvd142m",
+        "params_M": 21.6,
+        "recall_at_1": 0.8623853211009175,
+        "recall_at_5": 0.9651376146788991,
+        "map_at_r": 0.5658470948012232,
+        "n_known_queries": 545,
+        "n_unknown_queries": 577,
+        "eval_seconds": 5.1
+      },
+      {
+        "model": "vit_base_patch14_dinov2.lvd142m",
+        "params_M": 85.7,
+        "recall_at_1": 0.8513761467889909,
+        "recall_at_5": 0.9541284403669725,
+        "map_at_r": 0.5594617737003058,
+        "n_known_queries": 545,
+        "n_unknown_queries": 577,
+        "eval_seconds": 8.7
+      }
+    ]
+  },
+  "created": "2026-10-09 14:34:19"
+}

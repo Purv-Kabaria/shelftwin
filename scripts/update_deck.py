@@ -518,14 +518,15 @@ def slide_models(prs, idx, tpl, results: Path):
     kpis = [
         (pct(pk.get("mAP50")) if pk else PENDING, "Pack detection mAP50",
          f"mAP50-95 {pct(pk.get('mAP50_95'))}; 2,920 unseen SKU-110K photos" if pk else "SKU-110K test split (2,920 photos)"),
-        (pct((pg.get("gap_recall_at_p90") or {}).get("recall_at_p")) if pg else PENDING, "Gap recall at 90% precision",
-         "real gaps on unseen shelf photos"),
+        (pct(((pg.get("metrics") or {}).get("per_class_AP50") or {}).get("gap")) if pg else PENDING, "Gap detection AP50",
+         f"real gaps on unseen photos; recall at 90% precision {pct((pg.get('gap_recall_at_p90') or {}).get('recall_at_p'))}"
+         if pg else "real gaps on unseen shelf photos"),
         (pct(test.get("recall_at_1")) if test else PENDING, "Product identity Recall@1",
          f"SKUs never seen in training; accepted precision {pct(test.get('accepted_precision'))}" if test
          else "SKUs never seen in training (open set)"),
         ((f"{e2e.get('engine_false_alerts')} vs {e2e.get('single_frame_alerts')}" if "engine_false_alerts" in e2e else PENDING),
          "False alerts: ShelfTwin vs single-frame",
-         f"end-to-end demo on a real photo; stockout caught in {e2e.get('detection_delay_s', 0):.0f} s"
+         f"real photo, every trained model; stockout caught in {e2e.get('detection_delay_s', 0):.0f} s, refill verified"
          if e2e.get("detection_delay_s") is not None else "end-to-end demo on a real shelf photo"),
     ]
     for i, (v, lab, sub) in enumerate(kpis):
@@ -541,8 +542,8 @@ def slide_models(prs, idx, tpl, results: Path):
     else:
         rows.append(["Detector: model x resolution x mosaic", "YOLO11 n/s; 896 vs 1024 px; mosaic on/off", PENDING])
     if expg.get("runs"):
-        opts = ", ".join(f"{r['name']} {r['gap_recall_at_p90'] or 0:.2f}" for r in expg["runs"])
-        rows.append(["Gap labels (gap recall at P=0.9)", opts, expg["winner"]["name"].replace("_", " ")])
+        opts = ", ".join(f"{r['name'].replace('_', ' ')}: {r['gap_AP50'] or 0:.3f}" for r in expg["runs"])
+        rows.append(["Gap labels: real only vs + synthetic erasing (gap AP50)", opts, expg["winner"]["name"].replace("_", " ")])
     else:
         rows.append(["Gap labels", "real gaps only vs + synthetic erasing vs shelf-back fill", PENDING])
     if expe.get("runs"):

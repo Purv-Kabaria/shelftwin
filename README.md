@@ -8,9 +8,9 @@ verifies the fix. See `ShelfTwin-project-spec.md` for the full design and `Shelf
 
 **Proof of concept**
 * Code (this repo): engine, simulator, vision pipeline, task service, dashboard, 56 tests.
-* Training run on real data, public with full logs: [Kaggle notebook `purv2k2/notebook77852dc329`](https://www.kaggle.com/code/purv2k2/notebook77852dc329)
+* Training run on real data, public with full logs: [Kaggle notebook `purv2k2/shelftwin-training`](https://www.kaggle.com/code/purv2k2/shelftwin-training)
   (built from `notebooks/ShelfTwin_Kaggle_final.ipynb`).
-* Results so far: [real-data findings](#real-data-findings-kaggle-session-1) below; detector and identity metrics are added after the training session.
+* Results: [trained models](#trained-models-held-out-real-data) and [real-data findings](#real-data-findings-kaggle-session-1) below; all result files are in `results/kaggle/`.
 
 ```
 frames → quality/change gate → person mask → pack+gap detector → shelf geometry → coverage per slot
@@ -42,6 +42,18 @@ on a task: staff "refill" the slot and the camera verifies it, which closes the 
 
 These numbers test the decision logic on simulated detector outputs (spec 7.1 assumptions). Real-camera accuracy has
 to be measured on recorded store footage.
+
+## Trained models (held-out real data)
+
+| Model | Result | Test data |
+|---|---|---|
+| Pack detector (YOLO11s @ 1024 px) | **mAP50 95.0%**, mAP50-95 60.2%, precision 91.6%, recall 88.9% | 2,920 unseen SKU-110K photos |
+| Pack + gap detector | gap AP50 57.4% (recall at 90% precision 7.8%: heuristic gap labels are noisy) | real gaps on unseen photos |
+| Product identity (DINOv2 ViT-S/14 + ArcFace) | **Recall@1 93.1%** (untrained DINOv2: 70.1%), mAP@R 0.82, 94.3% precision on accepted matches, 96.9% of new products answered "unknown" | the 20% of RP2K SKUs held out from training (1,549 SKUs used for training) |
+| End-to-end pipeline demo | **8 false alerts vs 53** for single-frame; stockout caught in 32 s; refill camera-verified; swapped products flagged | real shelf photo, scripted 8-minute episode |
+
+Experiment winners (subset runs, picked automatically): YOLO11s at 1024 px over 896 px, no-mosaic and YOLO11n;
+fine-tuning the last 4 DINOv2 blocks over 2 blocks, head-only and zero-shot. Video: `results/kaggle/e2e_demo.mp4`.
 
 ## Real-data findings (Kaggle session 1)
 
@@ -114,6 +126,6 @@ tests/       unit + system tests
 | Planogram alignment (Needleman-Wunsch), layouts, bay "layout changed?" guard | Done, tested |
 | Task service: priority, batching, escalation, verification, reopen, cold chain | Done, tested |
 | FastAPI + dashboard, Telegram, en/hi/gu messages | Done (dashboard is plain HTML, not Next.js) |
-| Detector and embedder training | Kaggle run in progress (experiments → decisions → final training) |
+| Detector and embedder training | Done on Kaggle (experiments → decisions → final training → evaluation) |
 | Visibility (cart/basket fine-tune), OCR fine-tune, shelf-edge model, Jetson export | Not yet: COCO person mask is used as is |
 | WhatsApp, PostgreSQL, MQTT | Not yet: SQLite and in-process calls for the prototype |

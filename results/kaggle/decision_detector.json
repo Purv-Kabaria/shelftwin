@@ -1,0 +1,82 @@
+{
+  "topic": "detector",
+  "decision": {
+    "model": "yolo11s.pt",
+    "imgsz": 1024,
+    "mosaic": 1.0,
+    "nms_iou": 0.7
+  },
+  "evidence": {
+    "table": [
+      {
+        "name": "d_y11s_1024",
+        "model": "yolo11s.pt",
+        "imgsz": 1024,
+        "mosaic": 1.0,
+        "epochs": 10,
+        "split": "test",
+        "mAP50": 0.9171163612568181,
+        "mAP50_95": 0.5666013407193209,
+        "precision": 0.886840347726409,
+        "recall": 0.844000766850163,
+        "per_class_AP50": {
+          "pack": 0.9171163612568181
+        },
+        "epochs_done": 10,
+        "latency_ms_t4_fp16": 12.238770000067234
+      },
+      {
+        "name": "d_y11s_896",
+        "model": "yolo11s.pt",
+        "imgsz": 896,
+        "mosaic": 1.0,
+        "epochs": 10,
+        "split": "test",
+        "mAP50": 0.9091869269255352,
+        "mAP50_95": 0.5584518477780714,
+        "precision": 0.8843521597930103,
+        "recall": 0.837619477994139,
+        "per_class_AP50": {
+          "pack": 0.9091869269255352
+        },
+        "epochs_done": 10,
+        "latency_ms_t4_fp16": 12.400485000171102
+      },
+      {
+        "name": "d_y11s_896_nomosaic",
+        "model": "yolo11s.pt",
+        "imgsz": 896,
+        "mosaic": 0.0,
+        "epochs": 10,
+        "split": "test",
+        "mAP50": 0.8825718782258516,
+        "mAP50_95": 0.5426597142786205,
+        "precision": 0.8835849159210509,
+        "recall": 0.8126557664393503,
+        "per_class_AP50": {
+          "pack": 0.8825718782258516
+        },
+        "epochs_done": 10,
+        "latency_ms_t4_fp16": 12.611380000180361
+      },
+      {
+        "name": "d_y11n_1024",
+        "model": "yolo11n.pt",
+        "imgsz": 1024,
+        "mosaic": 1.0,
+        "epochs": 10,
+        "split": "test",
+        "mAP50": 0.8929555690457657,
+        "mAP50_95": 0.5370596111178123,
+        "precision": 0.8721125271760887,
+        "recall": 0.8193409040002491,
+        "per_class_AP50": {
+          "pack": 0.8929555690457657
+        },
+        "epochs_done": 10,
+        "latency_ms_t4_fp16": 11.441051000247171
+      }
+    ]
+  },
+  "created": "2026-10-09 14:13:33"
+}

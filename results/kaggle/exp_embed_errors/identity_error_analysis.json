@@ -1,0 +1,331 @@
+{
+  "recall_at_1": 0.9522935779816514,
+  "n_known": 545,
+  "n_wrong": 26,
+  "most_confused": [
+    {
+      "true": "营养快线",
+      "predicted": "维他柠檬茶瓶装",
+      "count": 2
+    },
+    {
+      "true": "金沙河刀削挂面紫",
+      "predicted": "养味牛奶",
+      "count": 1
+    },
+    {
+      "true": "金沙河刀削挂面紫",
+      "predicted": "每日C纯果汁_3",
+      "count": 1
+    },
+    {
+      "true": "贝纳颂经典系列250ml摩卡",
+      "predicted": "中华（硬）",
+      "count": 1
+    },
+    {
+      "true": "李锦记纯香芝麻油410ML",
+      "predicted": "葱伴侣蒜蓉黄豆酱718G",
+      "count": 1
+    },
+    {
+      "true": "可口可乐纤维+罐装",
+      "predicted": "崂山啤酒9度罐啤组合装",
+      "count": 1
+    },
+    {
+      "true": "可口可乐纤维+罐装",
+      "predicted": "六神（冰芬香型）花露水195",
+      "count": 1
+    },
+    {
+      "true": "营养快线",
+      "predicted": "麒麟火咖意式拿铁咖啡",
+      "count": 1
+    },
+    {
+      "true": "营养快线",
+      "predicted": "美汁源酷儿苹果味",
+      "count": 1
+    },
+    {
+      "true": "中华（硬）",
+      "predicted": "贝纳颂经典系列250ml摩卡",
+      "count": 1
+    },
+    {
+      "true": "中华（硬）",
+      "predicted": "七匹狼（红）",
+      "count": 1
+    },
+    {
+      "true": "海神红油豆瓣",
+      "predicted": "葱伴侣椒麻黄豆酱_瓶装300G",
+      "count": 1
+    },
+    {
+      "true": "老才臣葱姜料酒",
+      "predicted": "东古味极鲜",
+      "count": 1
+    },
+    {
+      "true": "红梅（软黄）",
+      "predicted": "南京（九五）",
+      "count": 1
+    },
+    {
+      "true": "贵烟（新贵）",
+      "predicted": "黄金叶（喜满堂）",
+      "count": 1
+    }
+  ],
+  "per_class_recall": {
+    "p10": 0.8,
+    "median": 1.0,
+    "classes_below_50pct": 0,
+    "classes": 58
+  },
+  "margin_used": 0.11,
+  "curve": [
+    {
+      "sim": 0.2,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.22,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.24,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.26,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.27999999999999997,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.29999999999999993,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.31999999999999995,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.33999999999999997,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.35999999999999993,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.3799999999999999,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.3999999999999999,
+      "precision": 0.8,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8162911611785095
+    },
+    {
+      "sim": 0.41999999999999993,
+      "precision": 0.8014842300556586,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8180242634315424
+    },
+    {
+      "sim": 0.4399999999999999,
+      "precision": 0.8029739776951673,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8197573656845754
+    },
+    {
+      "sim": 0.4599999999999999,
+      "precision": 0.8029739776951673,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8197573656845754
+    },
+    {
+      "sim": 0.47999999999999987,
+      "precision": 0.8029739776951673,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8197573656845754
+    },
+    {
+      "sim": 0.49999999999999983,
+      "precision": 0.8044692737430168,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8214904679376083
+    },
+    {
+      "sim": 0.5199999999999998,
+      "precision": 0.8105065666041276,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.82842287694974
+    },
+    {
+      "sim": 0.5399999999999998,
+      "precision": 0.8181818181818182,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8370883882149047
+    },
+    {
+      "sim": 0.5599999999999998,
+      "precision": 0.8228571428571428,
+      "coverage": 0.7926605504587156,
+      "unknown_rejection": 0.8422876949740035
+    },
+    {
+      "sim": 0.5799999999999998,
+      "precision": 0.8352713178294574,
+      "coverage": 0.7908256880733945,
+      "unknown_rejection": 0.8561525129982669
+    },
+    {
+      "sim": 0.5999999999999999,
+      "precision": 0.844488188976378,
+      "coverage": 0.7871559633027523,
+      "unknown_rejection": 0.8665511265164645
+    },
+    {
+      "sim": 0.6199999999999999,
+      "precision": 0.8483033932135728,
+      "coverage": 0.7798165137614679,
+      "unknown_rejection": 0.8717504332755632
+    },
+    {
+      "sim": 0.6399999999999998,
+      "precision": 0.8525252525252526,
+      "coverage": 0.7743119266055046,
+      "unknown_rejection": 0.8769497400346621
+    },
+    {
+      "sim": 0.6599999999999997,
+      "precision": 0.8760504201680672,
+      "coverage": 0.7651376146788991,
+      "unknown_rejection": 0.901213171577123
+    },
+    {
+      "sim": 0.6799999999999997,
+      "precision": 0.8871681415929203,
+      "coverage": 0.7357798165137615,
+      "unknown_rejection": 0.9150779896013865
+    },
+    {
+      "sim": 0.6999999999999997,
+      "precision": 0.8972602739726028,
+      "coverage": 0.7211009174311926,
+      "unknown_rejection": 0.925476603119584
+    },
+    {
+      "sim": 0.7199999999999998,
+      "precision": 0.9132530120481928,
+      "coverage": 0.6954128440366972,
+      "unknown_rejection": 0.9393414211438474
+    },
+    {
+      "sim": 0.7399999999999998,
+      "precision": 0.9289340101522843,
+      "coverage": 0.671559633027523,
+      "unknown_rejection": 0.9532062391681109
+    },
+    {
+      "sim": 0.7599999999999998,
+      "precision": 0.940677966101695,
+      "coverage": 0.6110091743119266,
+      "unknown_rejection": 0.9636048526863085
+    },
+    {
+      "sim": 0.7799999999999998,
+      "precision": 0.9487179487179487,
+      "coverage": 0.5431192660550459,
+      "unknown_rejection": 0.9722703639514731
+    },
+    {
+      "sim": 0.7999999999999996,
+      "precision": 0.9618320610687023,
+      "coverage": 0.46238532110091746,
+      "unknown_rejection": 0.9826689774696707
+    },
+    {
+      "sim": 0.8199999999999996,
+      "precision": 0.9766355140186916,
+      "coverage": 0.3834862385321101,
+      "unknown_rejection": 0.9913344887348353
+    },
+    {
+      "sim": 0.8399999999999996,
+      "precision": 0.9826589595375722,
+      "coverage": 0.3119266055045872,
+      "unknown_rejection": 0.9948006932409013
+    },
+    {
+      "sim": 0.8599999999999997,
+      "precision": 0.9769230769230769,
+      "coverage": 0.23302752293577983,
+      "unknown_rejection": 0.9948006932409013
+    },
+    {
+      "sim": 0.8799999999999997,
+      "precision": 1.0,
+      "coverage": 0.163302752293578,
+      "unknown_rejection": 1.0
+    },
+    {
+      "sim": 0.8999999999999997,
+      "precision": 1.0,
+      "coverage": 0.09908256880733946,
+      "unknown_rejection": 1.0
+    },
+    {
+      "sim": 0.9199999999999997,
+      "precision": 1.0,
+      "coverage": 0.05137614678899083,
+      "unknown_rejection": 1.0
+    },
+    {
+      "sim": 0.9399999999999997,
+      "precision": 1.0,
+      "coverage": 0.031192660550458717,
+      "unknown_rejection": 1.0
+    },
+    {
+      "sim": 0.9599999999999995,
+      "precision": 1.0,
+      "coverage": 0.01834862385321101,
+      "unknown_rejection": 1.0
+    },
+    {
+      "sim": 0.9799999999999995,
+      "precision": 1.0,
+      "coverage": 0.01834862385321101,
+      "unknown_rejection": 1.0
+    }
+  ]
+}

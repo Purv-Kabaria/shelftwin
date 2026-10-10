@@ -1,0 +1,31 @@
+{
+  "args": {
+    "model": "yolo11s.pt",
+    "data": "/tmp/shelftwin/sku110k_full/data.yaml",
+    "imgsz": 1024,
+    "epochs": 40,
+    "batch": 12,
+    "batch_per_gpu": 6,
+    "name": "final_pack",
+    "optimizer": "AdamW",
+    "lr0": 0.002,
+    "cos_lr": true,
+    "warmup_epochs": 2,
+    "mosaic": 1.0,
+    "close_mosaic": 10,
+    "fliplr": 0.5,
+    "degrees": 0.0,
+    "perspective": 0.0005,
+    "max_det": 1000,
+    "amp": true,
+    "patience": 15,
+    "seed": 0,
+    "deterministic": false
+  },
+  "decision": {
+    "model": "yolo11s.pt",
+    "imgsz": 1024,
+    "mosaic": 1.0,
+    "nms_iou": 0.7
+  }
+}
