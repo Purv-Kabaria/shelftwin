@@ -395,7 +395,7 @@ def edit_slide12(prs, s12, sim: dict, engine: dict | None):
     runs[0].text = "Scope: "
     if len(runs) > 1:
         runs[1].text = ("these numbers test the decision logic on simulated detector outputs. "
-                        "Trained models on real held-out data: next two slides.")
+                        "Trained models on real held-out data and the demo video: following slides.")
         for extra in runs[2:]:
             extra._r.getparent().remove(extra._r)
 
@@ -588,6 +588,48 @@ def slide_models(prs, idx, tpl, results: Path):
     return s
 
 
+def slide_demo_video(prs, idx, tpl, results: Path):
+    """End-to-end demo video (results/kaggle/e2e_demo.mp4) embedded with a poster frame."""
+    import tempfile
+    video = results / "e2e_demo.mp4"
+    if not video.exists():
+        return None
+    e2e = load(results / "e2e_summary.json") or {}
+    s = new_slide(prs, "End-to-end demo: every trained model on a real shelf photo", idx, tpl["title"])
+    import cv2
+    cap = cv2.VideoCapture(str(video))
+    cap.set(cv2.CAP_PROP_POS_FRAMES, min(60, int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1))
+    ok, frame = cap.read()
+    cap.release()
+    poster = Path(tempfile.mkdtemp()) / "poster.png"
+    if ok:
+        cv2.imwrite(str(poster), frame)
+    side = 5.75
+    s.shapes.add_movie(str(video), Inches(0.5), Inches(1.0), Inches(side), Inches(side),
+                       poster_frame_image=str(poster) if ok else None, mime_type="video/mp4")
+    heading(s, tpl["heading"], 6.75, 1.0, 6.08, "What happens in the 8-minute episode")
+    bullets(s, tpl["bullets"], 6.75, 1.35, 6.08, 2.6, [
+        "Slot A runs out at 40 s: ShelfTwin raises one restock task after clean confirming views.",
+        "Shoppers block slot B twice: the single-frame baseline fires; ShelfTwin waits (CANNOT SEE).",
+        "Glare washes out the frame: the quality gate drops it instead of raising alerts.",
+        "Two products are swapped: identity + planogram alignment open a displacement task.",
+        "Slot A is refilled at 280 s: the camera verifies it and the task closes.",
+    ])
+    if e2e:
+        heading(s, tpl["heading"], 6.75, 3.35, 6.08, "Measured in this run")
+        bullets(s, tpl["bullets"], 6.75, 3.7, 6.08, 1.6, [
+            f"False alerts: {e2e.get('engine_false_alerts')} for ShelfTwin vs {e2e.get('single_frame_alerts')} for a "
+            "single-frame detector on the same frames.",
+            f"Stockout caught {e2e.get('detection_delay_s', 0):.0f} s after it happened; refill verified: "
+            f"{'yes' if e2e.get('refill_verified') else 'no'}; swap flagged: {'yes' if e2e.get('displacement_task') else 'no'}.",
+        ])
+    caption(s, tpl["caption"], 0.5, 6.85, 12.33, 0.4,
+            "Boxes are coloured by twin state (green healthy, amber waiting, red empty, grey cannot see). The shopper is a "
+            "drawn silhouette with a known mask; detection, identity, alignment and the engine are the trained models.")
+    s.notes_slide.notes_text_frame.text = f"Video: results/kaggle/e2e_demo.mp4. Produced by {KAGGLE_URL}."
+    return s
+
+
 # ============================================================================ main
 def main():
     ap = argparse.ArgumentParser()
@@ -608,6 +650,7 @@ def main():
     # new slides first (they clone from the unedited slide-12 templates)
     slide_real_data(prs, 11, tpl, results, engine)
     slide_models(prs, 12, tpl, results)
+    slide_demo_video(prs, 13, tpl, results)
     edit_slide12(prs, s12, sim, engine)
     edit_slide1(s1, engine, sim)
     edit_slide18(s18, have_models=(results / "final_report.json").exists())
