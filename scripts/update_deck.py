@@ -630,6 +630,77 @@ def slide_demo_video(prs, idx, tpl, results: Path):
     return s
 
 
+def slide_limitations(prs, idx, tpl, results: Path):
+    """Honest weak points, each measured in the Kaggle run, with the planned fix."""
+    rep = load(results / "final_report.json") or {}
+    if not rep:
+        return None
+    ea = (rep.get("pack_detector") or {}).get("error_analysis") or {}
+    pg = rep.get("pack_gap_detector") or {}
+    gap_ap = ((pg.get("metrics") or {}).get("per_class_AP50") or {}).get("gap")
+    gap_r = (pg.get("gap_recall_at_p90") or {}).get("recall_at_p")
+    expg = load(results / "exp_gap.json") or {}
+    gap_aps = [r["gap_AP50"] for r in expg.get("runs", []) if r.get("gap_AP50") is not None]
+    sizes = ea.get("recall_by_size_quintile") or []
+    fp = ea.get("false_positive_types") or {}
+    cnt = ea.get("count_error") or {}
+    emb = (load(results / "embedder" / "embedder_report.json") or {}).get("test") or {}
+    err = load(results / "final_embed_errors" / "identity_error_analysis.json") or {}
+    e2e = load(results / "e2e_summary.json") or {}
+    eng = load(results / "engine_analysis.json") or {}
+    att = eng.get("attribution") or {}
+    s = new_slide(prs, "What does not work yet, and how the final build fixes it", idx, tpl["title"])
+    rows = [["Weak point (measured on held-out data)", "Why it happens", "Fix in the final build"]]
+    rows.append([
+        f"Gap detection: AP50 {pct(gap_ap)}, but only {pct(gap_r)} recall at 90% precision.",
+        "Gap labels come from a shelf-geometry rule and are noisy (shelf ends, unannotated packs). "
+        + (f"All three label strategies scored within {max(gap_aps) - min(gap_aps):.3f} AP: labels are the bottleneck."
+           if len(gap_aps) > 1 else ""),
+        "Hand-label 300-500 real gaps; keep only rule gaps that show shelf-back texture; add light (white) "
+        "shelf backs to the synthetic gaps. Restock alerts already rely on pack coverage, not the gap class."])
+    if sizes:
+        rows.append([
+            f"Smallest packs: recall {pct(sizes[0]['recall'])} for the smallest fifth vs {pct(sizes[-1]['recall'])} "
+            f"for large packs. {fp.get('background', 0) / 1000:.0f}k background and "
+            f"{fp.get('duplicate_or_misaligned', 0) / 1000:.0f}k duplicate boxes; counts {cnt.get('bias', 0):+.1f} per photo.",
+            "Whole photos are shrunk to 1024 px, so small packs are only a few pixels wide; dense rows produce "
+            "duplicate boxes.",
+            "Run on 2 overlapping tiles per frame, as the edge design specifies; shelf-edge cameras for "
+            "small-pack bays; tune NMS for touching packs."])
+    if emb:
+        conf = (err.get("most_confused") or [{}])[0]
+        rows.append([
+            f"Look-alike products: {err.get('n_wrong', 0):,} of {emb.get('n_known_queries', 0):,} identity queries wrong; "
+            f"accepted-match precision {pct(emb.get('accepted_precision'))} vs the 98% target.",
+            "Most errors are the same brand in another size or variant"
+            + (" (e.g. one children's milk in 190 ml vs 125 ml packs, two scents of one floral water)"
+               if any("190ml" in c.get("true", "") + c.get("predicted", "") for c in err.get("most_confused", []))
+               else (f" (e.g. {conf.get('true')} vs {conf.get('predicted')})" if conf.get("true") else "")) + ".",
+            "OCR tie-break on size and variant text; 3-5 extra photos per look-alike family; hard negatives "
+            "mined within each brand."])
+    if e2e:
+        rows.append([
+            f"End-to-end demo: {e2e.get('engine_false_alerts')} false alerts (single-frame: "
+            f"{e2e.get('single_frame_alerts')}); stockout caught in {e2e.get('detection_delay_s', 0):.0f} s.",
+            "If the detector misses the same pack frame after frame, the engine sees consistent evidence of a gap.",
+            "Require a gap detection (not only low coverage) to confirm; per-slot detector reliability from "
+            "history; calibrate the engine on recorded store footage."])
+    rows.append([
+        "Domain gap: no Indian stores in training; occlusion in the demo is simulated."
+        + (f" All {att.get('n_false')} simulated false alerts involve a missed person mask." if att.get("n_false") else ""),
+        "SKU-110K is US/EU shelves and RP2K is Chinese retail; we had no store footage yet.",
+        "Capture 3-5 Indian stores (protocol in the spec); fine-tune the person mask for carts and baskets; "
+        "build the catalogue from local pack photos."])
+    build_table(tpl["table"], s, 0.5, 1.05, [4.0, 4.0, 4.33], rows,
+                row_h=[0.34] + [0.98] * (len(rows) - 1), font_pt=10)
+    caption(s, tpl["caption"], 0.5, 6.95, 12.33, 0.35,
+            "Every number comes from the error analysis of the public Kaggle run (results/kaggle/ in the repository).")
+    s.notes_slide.notes_text_frame.text = (
+        "Sources: final_report.json (error_analysis), exp_gap.json, embedder/embedder_report.json, "
+        "final_embed_errors/identity_error_analysis.json, e2e_summary.json, engine_analysis.json.")
+    return s
+
+
 # ============================================================================ main
 def main():
     ap = argparse.ArgumentParser()
@@ -651,6 +722,7 @@ def main():
     slide_real_data(prs, 11, tpl, results, engine)
     slide_models(prs, 12, tpl, results)
     slide_demo_video(prs, 13, tpl, results)
+    slide_limitations(prs, 14, tpl, results)
     edit_slide12(prs, s12, sim, engine)
     edit_slide1(s1, engine, sim)
     edit_slide18(s18, have_models=(results / "final_report.json").exists())
